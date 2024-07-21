@@ -60,6 +60,7 @@ class ThemeParkWikiApiClient:
             d["id"],
             d["name"],
             d["entityType"],
+            d["status"],
             list(map(lambda show_time: ThemeParkAttractionShowTime(parse_datetime(show_time["startTime"]), parse_datetime(show_time["endTime"])), d["showtimes"])) if "showtimes" in d else None,
             d["queue"]["STANDBY"]["waitTime"] if "queue" in d and "STANDBY" in d["queue"] and "waitTime" in d["queue"]["STANDBY"] else None,
             d["queue"]["SINGLE_RIDER"]["waitTime"] if "queue" in d and "SINGLE_RIDER" in d["queue"] and "waitTime" in d["queue"]["SINGLE_RIDER"] else None,

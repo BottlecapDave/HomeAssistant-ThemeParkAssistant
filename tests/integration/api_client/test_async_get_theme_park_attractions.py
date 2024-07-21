@@ -22,6 +22,7 @@ async def test_when_get_theme_park_attractions_is_called_then_data_is_returned()
 
     for attraction in result:
         assert attraction.id is not None and attraction.id != ""
+        assert attraction.status is not None and attraction.status in ("OPERATING", "DOWN", "CLOSED", "REFURBISHMENT")
         assert attraction.entity_type is not None and attraction.entity_type in ("SHOW", "ATTRACTION")
         assert attraction.last_updated is not None and attraction.last_updated < now()
         assert attraction.name is not None and attraction.name != ""

@@ -6,6 +6,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import selector
 
 from .const import (
+  CONFIG_MAIN_THEME_PARK_NAME,
   DOMAIN,
   
   CONFIG_MAIN_THEME_PARK_ID,
@@ -55,9 +56,11 @@ class ThemeParkAssistantConfigFlow(ConfigFlow, domain=DOMAIN):
     if theme_park is not None:
       errors[CONFIG_MAIN_THEME_PARK_ID] = "theme_park_not_found"
 
+    user_input[CONFIG_MAIN_THEME_PARK_NAME] = theme_park.name
+
     # Setup our basic sensors
     return self.async_create_entry(
-      title=theme_park.name, 
+      title=f"{theme_park.name} ({theme_park.destination_name})", 
       data=user_input
     )
 

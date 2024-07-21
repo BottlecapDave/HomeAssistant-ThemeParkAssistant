@@ -16,7 +16,7 @@ from .coordinators.theme_park_attraction_times import async_create_theme_park_at
 
 _LOGGER = logging.getLogger(__name__)
 
-PLATFORMS = []
+PLATFORMS = ["todo"]
 
 async def async_setup_entry(hass, entry):
   """This is called from the config flow."""

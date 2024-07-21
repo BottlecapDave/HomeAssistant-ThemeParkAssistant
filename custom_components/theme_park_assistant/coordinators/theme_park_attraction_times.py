@@ -9,6 +9,7 @@ from homeassistant.helpers.update_coordinator import (
 from ..const import (
   COORDINATOR_REFRESH_IN_SECONDS,
   DATA_THEME_PARK_ATTRACTION_TIMES,
+  DATA_THEME_PARK_ATTRACTION_TIMES_COORDINATOR,
   DOMAIN,
   REFRESH_RATE_IN_MINUTES_ATTRACTION_TIMES,
 )
@@ -37,7 +38,7 @@ async def _async_get_theme_park_attraction_times(
     try:
       data = await client.async_get_theme_park_attractions(theme_park_id)
       if data is not None:
-        _LOGGER.debug(f'Retrieved theme park attraction times for {theme_park_id}; length: {len(data)}; last_from: {data[-1]["start"] if len(data) > 0 else None}')
+        _LOGGER.debug(f'Retrieved theme park attraction times for {theme_park_id}')
         return ThemeParkAttractionTimesCoordinatorResult(current_date, 1, data)
     except Exception as e:
       if isinstance(e, ApiException) == False:
@@ -91,5 +92,7 @@ async def async_create_theme_park_attraction_times_coordinator(hass, client: The
     update_interval=timedelta(seconds=COORDINATOR_REFRESH_IN_SECONDS),
     always_update=True
   )
+
+  hass.data[DOMAIN][theme_park_id][DATA_THEME_PARK_ATTRACTION_TIMES_COORDINATOR] = coordinator
 
   return coordinator

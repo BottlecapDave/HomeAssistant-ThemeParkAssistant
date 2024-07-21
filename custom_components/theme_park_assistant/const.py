@@ -4,6 +4,7 @@ import homeassistant.helpers.config_validation as cv
 DOMAIN = "theme_park_assistant"
 
 CONFIG_MAIN_THEME_PARK_ID = "theme_park_id"
+CONFIG_MAIN_THEME_PARK_NAME = "theme_park_name"
 
 DATA_API_CLIENT = "api_client"
 
