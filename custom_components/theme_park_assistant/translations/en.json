@@ -1,0 +1,17 @@
+{
+  "title": "Theme Park Assistant",
+  "config": {
+    "step": {
+      "user": {
+        "description": "Setup your theme park",
+        "data": {
+          "theme_park_id": "Target theme park"
+        }
+      }
+    },
+    "error": {}
+  },
+  "issues": {
+    
+  }
+}

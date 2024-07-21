@@ -1,0 +1,19 @@
+{
+  "domain": "theme_park_assistant",
+  "name": "Theme Park Assistant",
+  "codeowners": [
+    "@bottlecapdave"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "repairs",
+    "recorder"
+  ],
+  "documentation": "https://bottlecapdave.github.io/HomeAssistant-ThemeParkAssistant",
+  "homekit": {},
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/BottlecapDave/HomeAssistant-ThemeParkAssistant/issues",
+  "ssdp": [],
+  "version": "1.0.0",
+  "zeroconf": []
+}

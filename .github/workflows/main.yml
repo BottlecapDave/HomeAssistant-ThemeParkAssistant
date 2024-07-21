@@ -1,0 +1,83 @@
+name: Main
+on:
+  schedule:
+    - cron:  '0 1 * * *'
+  push:
+    paths-ignore:
+      - '**.md'
+    branches:
+      - develop
+      - master
+  pull_request:
+jobs:
+  validate:
+    name: Validate
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "home-assistant/actions/hassfest@master"
+      - name: HACS Action
+        uses: "hacs/action@main"
+        with:
+          category: "integration"
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v1
+      - name: Install Python modules
+        run: |
+          pip install -r requirements.test.txt
+      - name: Unit tests suite
+        run: |
+          python -m pytest tests/unit
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v1
+      - name: Install Python modules
+        run: |
+          pip install -r requirements.test.txt
+      - name: Integration tests suite
+        run: |
+          python -m pytest tests/integration
+  release:
+    name: Release
+    if: github.ref == 'refs/heads/master'
+    needs: 
+    - validate
+    - unit-tests
+    - integration-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: asdf_install
+        uses: asdf-vm/actions/install@v1
+      - name: Install dependencies
+        run: npm ci
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release
+      - name: Merge master into develop
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          message: "chore: Merged master into develop"
+          from_branch: master
+          target_branch: develop
+          github_token: ${{ secrets.GITHUB_TOKEN }}
