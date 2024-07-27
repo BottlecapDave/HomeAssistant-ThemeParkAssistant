@@ -43,7 +43,7 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
     """Reset the todo list with the attractions for the park"""
     result: ThemeParkAttractionTimesCoordinatorResult = self.coordinator.data if self.coordinator is not None and self.coordinator.data is not None else None
 
-    if result.data is not None:
+    if result is not None and result.data is not None:
       self._attr_todo_items = []
       for attraction in result.data:
         if (attraction.status not in ("REFURBISHMENT")):

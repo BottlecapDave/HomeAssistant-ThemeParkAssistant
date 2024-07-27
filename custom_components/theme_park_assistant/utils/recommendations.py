@@ -1,4 +1,5 @@
 from datetime import datetime
+from math import floor
 from ..api_client.theme_park_attraction import ThemeParkAttraction
 
 def get_next_recommended_attraction(remaining_attractions: list, all_attractions: list[ThemeParkAttraction]):
@@ -38,7 +39,7 @@ def get_next_recommended_show(current: datetime, remaining_shows: list, all_attr
           if time.start_time > current and (next_time is None or time.start_time < next_time):
             next_time = time.start_time
 
-        show_time_in_minutes = ((next_time - current).total_seconds() / 60) if next_time is not None else None
+        show_time_in_minutes = floor((next_time - current).total_seconds() / 60) if next_time is not None else None
         if (show_time_in_minutes is not None and 
             show_time_in_minutes >= minimum_minutes and
             (best_show_time_in_minutes is None or show_time_in_minutes < best_show_time_in_minutes)):
