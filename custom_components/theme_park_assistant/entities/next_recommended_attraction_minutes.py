@@ -10,7 +10,8 @@ from homeassistant.const import (
 
 from ..const import EVENT_REMAINING_ATTRACTIONS_UPDATED
 from ..coordinators.theme_park_attraction_times import ThemeParkAttractionTimesCoordinatorResult
-from ..utils.recommendations import RecommendedShow, get_next_recommended_attraction
+from ..utils.recommendations import get_next_recommended_attraction
+from ..api_client.theme_park_attraction import ThemeParkAttraction
 
 class ThemeParkAssistantNextRecommendedAttractionMinutes(CoordinatorEntity, SensorEntity):
 
@@ -22,7 +23,7 @@ class ThemeParkAssistantNextRecommendedAttractionMinutes(CoordinatorEntity, Sens
     self._attributes = {}
     self._remaining_attractions = []
     self.entity_id = generate_entity_id("sensor.{}", self.unique_id, hass=hass)
-    self._recommended_attraction: RecommendedShow | None = None
+    self._recommended_attraction: ThemeParkAttraction | None = None
     self._state = None
 
   @property
@@ -74,7 +75,7 @@ class ThemeParkAssistantNextRecommendedAttractionMinutes(CoordinatorEntity, Sens
     if result is not None and result.data is not None:
       self._recommended_attraction = get_next_recommended_attraction(self._remaining_attractions, result.data)
       
-      self._state = self._recommended_attraction.minutes_to_show if self._recommended_attraction is not None else None
+      self._state = self._recommended_attraction.stand_by_wait_time_in_minutes if self._recommended_attraction is not None else None
       self._attributes = {
-        "attraction_id": self._recommended_attraction.show.id if self._recommended_attraction is not None else None,
+        "attraction_id": self._recommended_attraction.id if self._recommended_attraction is not None else None,
       }
