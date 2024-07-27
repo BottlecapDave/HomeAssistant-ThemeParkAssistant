@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import logging
+from typing import Callable, Any
 
 from homeassistant.util.dt import (now)
 from homeassistant.helpers.update_coordinator import (
@@ -11,6 +12,7 @@ from ..const import (
   DATA_THEME_PARK_ATTRACTION_TIMES,
   DATA_THEME_PARK_ATTRACTION_TIMES_COORDINATOR,
   DOMAIN,
+  EVENT_THEME_PARK_TIMES_UPDATED,
   REFRESH_RATE_IN_MINUTES_ATTRACTION_TIMES,
 )
 
@@ -31,7 +33,8 @@ async def _async_get_theme_park_attraction_times(
   current_date: datetime,
   client: ThemeParkWikiApiClient,
   theme_park_id: str,
-  previous_consumption: ThemeParkAttractionTimesCoordinatorResult | None
+  previous_consumption: ThemeParkAttractionTimesCoordinatorResult | None,
+  fire_event: Callable[[str, "dict[str, Any]"], None]
 ):
   if previous_consumption is None or current_date >= previous_consumption.next_refresh:
     
@@ -39,6 +42,7 @@ async def _async_get_theme_park_attraction_times(
       data = await client.async_get_theme_park_attractions(theme_park_id)
       if data is not None:
         _LOGGER.debug(f'Retrieved theme park attraction times for {theme_park_id}')
+        fire_event(EVENT_THEME_PARK_TIMES_UPDATED, { "theme_park_id": theme_park_id, "times": list(map(lambda x: x.to_json(), data)) })
         return ThemeParkAttractionTimesCoordinatorResult(current_date, 1, data)
     except Exception as e:
       if isinstance(e, ApiException) == False:
@@ -79,7 +83,8 @@ async def async_create_theme_park_attraction_times_coordinator(hass, client: The
       current,
       client,
       theme_park_id,
-      previous_consumption
+      previous_consumption,
+      hass.bus.async_fire
     )
     
     return hass.data[DOMAIN][theme_park_id][DATA_THEME_PARK_ATTRACTION_TIMES]

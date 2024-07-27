@@ -11,7 +11,7 @@ async def test_when_get_theme_park_attractions_is_called_then_data_is_returned()
     context = get_test_context()
     client = ThemeParkWikiApiClient()
 
-    theme_park_id = "ca888437-ebb4-4d50-aed2-d227f7096968" # Walt Disney Studios Park
+    theme_park_id = "bc4005c5-8c7e-41d7-b349-cdddf1796427" # Universal Studios Hollywood
 
     # Act
     result = await client.async_get_theme_park_attractions(theme_park_id)

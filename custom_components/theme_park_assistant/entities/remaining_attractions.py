@@ -1,4 +1,4 @@
-from homeassistant.core import Event, HomeAssistant, callback
+from homeassistant.core import callback
 from homeassistant.components.todo import (TodoListEntity, TodoItem, TodoListEntityFeature, TodoItemStatus)
 from homeassistant.helpers.update_coordinator import (
   CoordinatorEntity
@@ -6,6 +6,7 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.helpers.entity import generate_entity_id
 
 from ..coordinators.theme_park_attraction_times import ThemeParkAttractionTimesCoordinatorResult
+from ..const import EVENT_REMAINING_ATTRACTIONS_UPDATED
 
 class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
 
@@ -15,6 +16,7 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
 
   def __init__(self, hass, coordinator, theme_park_id: str, theme_park_name: str):
     CoordinatorEntity.__init__(self, coordinator)
+    self._hass = hass
     self._theme_park_id = theme_park_id
     self._theme_park_name = theme_park_name
     self._attributes = {}
@@ -47,7 +49,7 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
         if (attraction.status not in ("REFURBISHMENT")):
           self._attr_todo_items.append(TodoItem(summary=attraction.name, uid=attraction.id, status=TodoItemStatus.NEEDS_ACTION))
 
-    self.async_write_ha_state()
+    await self._async_sync_todo_items()
 
   async def async_delete_todo_items(self, uids: list[str]) -> None:
     """Delete a To-do item."""
@@ -58,4 +60,13 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
         new_todo_list.append(todo)
 
     self._attr_todo_items = new_todo_list
+    await self._async_sync_todo_items()
+
+  async def _async_sync_todo_items(self):
+    self._hass.bus.async_fire(EVENT_REMAINING_ATTRACTIONS_UPDATED, 
+      { 
+        "theme_park_id": self._theme_park_id,
+        "remaining_attractions": list(map(lambda todo: { "id": todo.uid, "name": todo.summary }, self._attr_todo_items))
+      })
+
     self.async_write_ha_state()

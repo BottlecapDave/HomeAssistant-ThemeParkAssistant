@@ -1,11 +1,12 @@
 import voluptuous as vol
 import logging
 
-from homeassistant.config_entries import (ConfigFlow)
-import homeassistant.helpers.config_validation as cv
+from homeassistant.core import callback
+from homeassistant.config_entries import (ConfigFlow, OptionsFlow)
 from homeassistant.helpers import selector
 
 from .const import (
+  CONFIG_MAIN_MINIMUM_SHOW_TIME_IN_MINUTES,
   CONFIG_MAIN_THEME_PARK_NAME,
   DOMAIN,
   
@@ -32,6 +33,7 @@ async def __async_setup_schema__():
             mode=selector.SelectSelectorMode.DROPDOWN,
         )
     ),
+    vol.Required(CONFIG_MAIN_MINIMUM_SHOW_TIME_IN_MINUTES): int
   })
 
 
@@ -77,3 +79,47 @@ class ThemeParkAssistantConfigFlow(ConfigFlow, domain=DOMAIN):
     return self.async_show_form(
       step_id="user", data_schema=schema
     )
+  
+  @staticmethod
+  @callback
+  def async_get_options_flow(entry):
+    return OptionsFlowHandler(entry)
+  
+class OptionsFlowHandler(OptionsFlow):
+  """Handles options flow for the component."""
+
+  def __init__(self, entry) -> None:
+    self._entry = entry
+
+  async def async_step_init(self, user_input):
+    """Manage the options for the custom component."""
+
+    if CONFIG_MAIN_THEME_PARK_ID in self._entry.data:
+      config = dict(self._entry.data)
+      if self._entry.options is not None:
+        config.update(self._entry.options)
+
+      schema = await __async_setup_schema__()
+
+      return self.async_show_form(
+        step_id="user",
+        data_schema=self.add_suggested_values_to_schema(
+          schema,
+          {
+            CONFIG_MAIN_MINIMUM_SHOW_TIME_IN_MINUTES: config[CONFIG_MAIN_MINIMUM_SHOW_TIME_IN_MINUTES] if CONFIG_MAIN_MINIMUM_SHOW_TIME_IN_MINUTES in config else 0
+          }
+        )
+      )
+
+    return self.async_abort(reason="not_supported")
+
+  async def async_step_user(self, user_input):
+    """Manage the options for the custom component."""
+
+    if user_input is not None:
+      config = dict(self._entry.data)
+      config.update(user_input)
+
+      return self.async_create_entry(title="", data=config)
+
+    return self.async_abort(reason="not_supported")
