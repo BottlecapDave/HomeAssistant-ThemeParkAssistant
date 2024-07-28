@@ -43,6 +43,18 @@ async def async_setup_main_sensors(hass, config, async_add_entities):
     "async_reset_remaining_attractions"
   )
 
+  platform.async_register_entity_service(
+    "clear_remaining_attractions",
+    vol.All(
+      vol.Schema(
+        {
+        },
+        extra=vol.ALLOW_EXTRA,
+      ),
+    ),
+    "async_clear_remaining_attractions"
+  )
+
   entities = []
 
   theme_park_id = config[CONFIG_MAIN_THEME_PARK_ID]
