@@ -1,0 +1,95 @@
+blueprint:
+  name: Theme Park Assistant - Recommended Attraction Actionable Notification
+  description: Set up to send an actionable notification when a recommended attraction updates
+  domain: automation
+  author: BottlecapDave
+  input:
+    recommended_attraction:
+      name: Recommended Attraction
+      description: The recommended attraction/show sensor
+      selector:
+        entity:
+          filter:
+          - domain:
+            - sensor
+            integration: theme_park_assistant
+          multiple: false
+    recommended_attraction_minutes:
+      name: Recommended Attraction Minutes
+      description: The recommended attraction/show minutes sensor
+      selector:
+        entity:
+          filter:
+          - domain:
+            - sensor
+            integration: theme_park_assistant
+          multiple: false
+    is_show:
+      name: Is Tracking Show
+      description: Determines if a show is being tracked
+      selector:
+        boolean: {}
+    todo_list:
+      name: Remaining Attractions
+      description: The todo list of remaining attractions
+      selector:
+        entity:
+          filter:
+          - domain:
+            - todo
+            integration: theme_park_assistant
+          multiple: false
+    actions:
+      name: Alert action
+      description: Notifications or similar to be run. Action of {{action_complete}} should be called to remove the recommended attraction/show
+        when redemption is successful. {{message}} is constructed based on the data
+      selector:
+        action: {}
+variables:
+  todo_list: !input todo_list
+  recommended_attraction: !input recommended_attraction
+  recommended_attraction_minutes: !input recommended_attraction_minutes
+  is_show: !input is_show
+  actions: !input actions
+mode: queued
+max: 4
+trigger:
+- platform: state
+  entity_id: !input recommended_attraction
+  not_to: unavailable
+condition: []
+action:
+# inside a automation actions or script sequence
+- alias: "Set up variables for the actions"
+  variables:
+    action_complete: "{{ 'COMPLETE_' ~ context.id }}"
+    action_ignore: "{{ 'IGNORE_' ~ context.id }}"
+    message: >
+      {% if is_show %}
+      {{ states(recommended_attraction) }} is recommended. It has a queue length of {{ states(recommended_attraction_minutes) }} minutes.
+      {% else %}
+      {{ states(recommended_attraction) }} is recommended. It starts in {{ states(recommended_attraction_minutes) }} minutes.
+      {% endif %}
+- choose: []
+  default: !input actions
+- alias: "Wait for a response"
+  wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "{{ action_complete }}"
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: "{{ action_ignore }}"
+- alias: "Perform the action"
+  choose:
+    - conditions: "{{ wait.trigger.event.data.action == action_complete }}"
+      sequence:
+        - service: todo.update_item
+          data:
+            status: completed
+            item: >
+              {{ state_attr(recommended_attraction, 'attraction_id') }}
+          target:
+            entity_id: !input todo_list
