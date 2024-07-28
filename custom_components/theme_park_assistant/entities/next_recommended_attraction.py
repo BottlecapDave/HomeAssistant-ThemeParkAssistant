@@ -5,7 +5,7 @@ from homeassistant.helpers.update_coordinator import (
 )
 from homeassistant.helpers.entity import generate_entity_id
 
-from ..const import EVENT_REMAINING_ATTRACTIONS_UPDATED
+from ..const import EVENT_NEW_RECOMMENDED_ATTRACTION, EVENT_REMAINING_ATTRACTIONS_UPDATED
 from ..api_client.theme_park_attraction import ThemeParkAttraction
 from ..coordinators.theme_park_attraction_times import ThemeParkAttractionTimesCoordinatorResult
 from ..utils.recommendations import get_next_recommended_attraction
@@ -65,8 +65,18 @@ class ThemeParkAssistantNextRecommendedAttraction(CoordinatorEntity, SensorEntit
     result: ThemeParkAttractionTimesCoordinatorResult = self.coordinator.data if self.coordinator is not None and self.coordinator.data is not None else None
 
     if result is not None and result.data is not None:
-      self._recommended_attraction = get_next_recommended_attraction(self._remaining_attractions, result.data)
+      new_recommended_attraction = get_next_recommended_attraction(self._remaining_attractions, result.data)
+
+      if new_recommended_attraction is not None and (self._recommended_attraction is None or new_recommended_attraction.id != self._recommended_attraction.id):
+        self._hass.async_fire(EVENT_NEW_RECOMMENDED_ATTRACTION, {
+          "theme_park_id": self._theme_park_id,
+          "attraction_id": new_recommended_attraction.id,
+          "attraction_name": new_recommended_attraction.name,
+          "is_show": False,
+          "minutes": new_recommended_attraction.stand_by_wait_time_in_minutes
+        })
       
+      self._recommended_attraction = new_recommended_attraction
       self._state = self._recommended_attraction.name if self._recommended_attraction is not None else None
       self._attributes = {
         "attraction_id": self._recommended_attraction.id if self._recommended_attraction is not None else None,

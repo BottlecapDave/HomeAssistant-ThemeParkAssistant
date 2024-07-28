@@ -17,3 +17,4 @@ REFRESH_RATE_IN_MINUTES_ATTRACTION_TIMES = 5
 
 EVENT_REMAINING_ATTRACTIONS_UPDATED = "theme_park_assistant_remaining_attractions_updated"
 EVENT_THEME_PARK_TIMES_UPDATED = "theme_park_assistant_theme_park_times_updated"
+EVENT_NEW_RECOMMENDED_ATTRACTION = "theme_park_assistant_new_recommended_attraction"
