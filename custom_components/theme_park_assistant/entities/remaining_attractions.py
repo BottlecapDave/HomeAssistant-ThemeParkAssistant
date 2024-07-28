@@ -11,7 +11,9 @@ from ..const import EVENT_REMAINING_ATTRACTIONS_UPDATED
 class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
 
   _attr_supported_features = (
+    TodoListEntityFeature.UPDATE_TODO_ITEM |
     TodoListEntityFeature.DELETE_TODO_ITEM
+    
   )
 
   def __init__(self, hass, coordinator, theme_park_id: str, theme_park_name: str):
@@ -49,6 +51,23 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
         if (attraction.status not in ("REFURBISHMENT")):
           self._attr_todo_items.append(TodoItem(summary=attraction.name, uid=attraction.id, status=TodoItemStatus.NEEDS_ACTION))
 
+    self._attr_todo_items.sort(key=lambda x: x.summary)
+    await self._async_sync_todo_items()
+
+  @callback
+  async def async_clear_remaining_attractions(self):
+    """Reset the todo list with the attractions for the park"""
+    self._attr_todo_items = []
+    await self._async_sync_todo_items()
+
+  async def async_update_todo_item(self, item: TodoItem) -> None:
+    """Update an item to the To-do list."""
+    for todo in self._attr_todo_items:
+      if item.uid == todo.uid:
+        todo.summary = item.summary
+        todo.status = item.status
+        break
+    
     await self._async_sync_todo_items()
 
   async def async_delete_todo_items(self, uids: list[str]) -> None:
@@ -66,7 +85,7 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
     self._hass.bus.async_fire(EVENT_REMAINING_ATTRACTIONS_UPDATED, 
       { 
         "theme_park_id": self._theme_park_id,
-        "remaining_attractions": list(map(lambda todo: { "id": todo.uid, "name": todo.summary }, self._attr_todo_items))
+        "remaining_attractions": list(map(lambda todo: { "id": todo.uid, "name": todo.summary }, filter(lambda x: x.status != TodoItemStatus.COMPLETED,self._attr_todo_items)))
       })
 
     self.async_write_ha_state()
