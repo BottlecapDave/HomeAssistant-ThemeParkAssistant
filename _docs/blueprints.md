@@ -28,3 +28,5 @@ This blueprint will run every time the recommended attraction of show updates an
             - action: '{{ action_ignore }}'
               title: Ignore
 ```
+
+![Notification Example](./assets/alert_example.png){width=300px}

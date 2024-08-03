@@ -22,7 +22,7 @@ You can take advantage of the markdown card, and include the following logic
 
 This will produce the following style
 
-![Theme Park Times Markdown example](./assets/theme_park_times_markdown.png)
+![Theme Park Times Markdown example](./assets/theme_park_times_markdown.png){width=300px}
 
 Be sure to update the target entity for your park.
 
