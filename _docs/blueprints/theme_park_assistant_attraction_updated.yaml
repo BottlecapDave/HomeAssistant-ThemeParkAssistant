@@ -4,31 +4,6 @@ blueprint:
   domain: automation
   author: BottlecapDave
   input:
-    recommended_attraction:
-      name: Recommended Attraction
-      description: The recommended attraction/show sensor
-      selector:
-        entity:
-          filter:
-          - domain:
-            - sensor
-            integration: theme_park_assistant
-          multiple: false
-    recommended_attraction_minutes:
-      name: Recommended Attraction Minutes
-      description: The recommended attraction/show minutes sensor
-      selector:
-        entity:
-          filter:
-          - domain:
-            - sensor
-            integration: theme_park_assistant
-          multiple: false
-    is_show:
-      name: Is Tracking Show
-      description: Determines if a show is being tracked
-      selector:
-        boolean: {}
     todo_list:
       name: Remaining Attractions
       description: The todo list of remaining attractions
@@ -47,16 +22,12 @@ blueprint:
         action: {}
 variables:
   todo_list: !input todo_list
-  recommended_attraction: !input recommended_attraction
-  recommended_attraction_minutes: !input recommended_attraction_minutes
-  is_show: !input is_show
   actions: !input actions
 mode: queued
 max: 4
 trigger:
-- platform: state
-  entity_id: !input recommended_attraction
-  not_to: unavailable
+- platform: event
+  event_type: theme_park_assistant_new_recommended_attraction
 condition: []
 action:
 # inside a automation actions or script sequence
@@ -65,10 +36,10 @@ action:
     action_complete: "{{ 'COMPLETE_' ~ context.id }}"
     action_ignore: "{{ 'IGNORE_' ~ context.id }}"
     message: >
-      {% if is_show %}
-      {{ states(recommended_attraction) }} is recommended. It has a queue length of {{ states(recommended_attraction_minutes) }} minutes.
+      {% if trigger.event.data.is_show %}
+      {{ trigger.event.data.attraction_name }} is recommended. It starts in {{ trigger.event.data.minutes }} minutes.
       {% else %}
-      {{ states(recommended_attraction) }} is recommended. It starts in {{ states(recommended_attraction_minutes) }} minutes.
+      {{ trigger.event.data.attraction_name }} is recommended. It has a queue length of {{ trigger.event.data.minutes }} minutes.
       {% endif %}
 - choose: []
   default: !input actions
@@ -90,6 +61,6 @@ action:
           data:
             status: completed
             item: >
-              {{ state_attr(recommended_attraction, 'attraction_id') }}
+              {{ trigger.event.data.attraction_id }}
           target:
             entity_id: !input todo_list

@@ -1,65 +1,61 @@
 # Services
 
-## add_time_with_hours
+## reset_remaining_attractions
 
-Service for adding a time entry by specifying hours instead of time period.
+Resets the remaining attractions list with all attractions for the associated park.
 
 | Attribute                | Optional | Description                                                                                                           |
-| ------------------------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
-| `target.entity_id`       | `no`     | The name of the sensor for the account the time entry will be added to. This should be your day or week sensor        |
-| `data.project_id`        | `no`     | The id of the project the entry should be logged against                                                              |
-| `data.task_id`           | `no`     | The id of the task the entry should be logged against                                                                 |
-| `data.date`              | `no`     | The date the entry is for. This should be in the format `YYYY-MM-DD`                                                  |
-| `data.hours`             | `no`     | The hours to be logged in the entry                                                                                   |
-| `data.notes`             | `yes`    | The optional notes to add to the entry                                                                                |
+| ------------------------ | -------- | ------------------------------- |
+| `target.entity_id`       | `no`     | The name of the sensor to reset |
 
 ### Automation Example
 
-Below is an example of adding an entry to a specific task when a calendar event with certain text ends. The entry has the hours of the calendar event. If the calendar entry is for something else, we add an entry to our elected default task.
+Below is an example of resetting the remaining attractions todo list every day at 08:00.
+
+!!! info
+
+    This is probably not how this service should be used, but is for demonstration purposes only
 
 ```yaml
 automations:
-  - alias: Work - Timesheet
+  - id: 2446efb1-730a-4447-a7b9-add5f778a334
+    alias: Theme Park Assistant - Reset Disney California Adventure
     trigger:
-    - platform: calendar
-      event: end
-      entity_id: calendar.work
-    condition:
-    - condition: state
-      entity_id: group.is_working
-      state: 'on'
+    - platform: time
+      at: '08:00:00'
+    condition: []
     action:
-    - choose:
-      - conditions:
-        - condition: template
-          value_template: >
-            {{ "Client X" in trigger.calendar_event.summary }}
-        sequence:
-        - service: theme_park_assistant.add_time_with_hours
-          data:
-            project_id: 1234
-            task_id: 5678
-            date: >
-              {{ (trigger.calendar_event.end | as_datetime).strftime("%Y-%m-%d") }}
-            hours: >
-              {{ ((trigger.calendar_event.end | as_datetime | as_timestamp) - (trigger.calendar_event.start | as_datetime | as_timestamp)) / 60 / 60 }}
-            notes: >
-              {{ trigger.calendar_event.summary }}
-          target:
-            entity_id: sensor.theme_park_assistant_XXX_hours_today
-      default:
-        - service: theme_park_assistant.add_time_with_hours
-          data:
-            project_id: >
-              {{ state_attr('select.theme_park_assistant_XXX_default_task', 'project_id') }}
-            task_id: >
-              {{ state_attr('select.theme_park_assistant_XXX_default_task', 'task_id') }}
-            date: >
-              {{ (trigger.calendar_event.end | as_datetime).strftime("%Y-%m-%d") }}
-            hours: >
-              {{ ((trigger.calendar_event.end | as_datetime | as_timestamp) - (trigger.calendar_event.start | as_datetime | as_timestamp)) / 60 / 60 }}
-            notes: >
-              {{ trigger.calendar_event.summary }}
-          target:
-            entity_id: sensor.theme_park_assistant_XXX_hours_today
+    - service: theme_park_assistant.reset_remaining_attractions
+      data: {}
+      target:
+        entity_id:
+          - todo.remaining_attractions_disney_california_adventure_park
+```
+
+## clear_remaining_attractions
+
+Clears all attractions from the todo list.
+
+| Attribute                | Optional | Description                                                                                                           |
+| ------------------------ | -------- | ------------------------------- |
+| `target.entity_id`       | `no`     | The name of the sensor to clear |
+
+### Automation Example
+
+Below is an example of resetting the remaining attractions todo list every day at 00:01.
+
+```yaml
+automations:
+  - id: 2446efb1-730a-4447-a7b9-add5f778a334
+    alias: Theme Park Assistant - Clear Disney California Adventure
+    trigger:
+    - platform: time
+      at: '00:01:00'
+    condition: []
+    action:
+    - service: theme_park_assistant.clear_remaining_attractions
+      data: {}
+      target:
+        entity_id:
+          - todo.remaining_attractions_disney_california_adventure_park
 ```

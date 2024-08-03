@@ -1,8 +1,14 @@
 reset_remaining_attractions:
   name: Resets remaining attractions
-  description: Rests the remaining attractions list with all attractions for the associated park.
+  description: Resets the remaining attractions list with all attractions for the associated park.
   target:
     entity:
       integration: theme_park_assistant
       domain: todo
-    
+clear_remaining_attractions:
+  name: Clear remaining attractions
+  description: Clears all attractions from the todo list.
+  target:
+    entity:
+      integration: theme_park_assistant
+      domain: todo

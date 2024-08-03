@@ -2,72 +2,70 @@
 
 The following entities are available when setting up your account.
 
-## Daily Hours
+## Next Recommended Attraction Minutes
 
-`sensor.theme_park_assistant_{ACCOUNT_ID}_hours_today`
+`sensor.next_recommended_attraction_minutes_{{PARK_NAME}}`
 
-This sensor will present the total hours for today.
+This sensor will present the minutes for the queue of the next recommended attraction. This will be the attraction in your [Recommended Attractions](#recommended-attractions) that have the lowest available stand by wait time.
 
-| Attribute Name | type | Note |
-|----------------|------|------|
-| `account_id` | `string` | The id of the account this sensor is for |
-| `entries` | `list` | The entries that added up to todays total |
+!!! note
 
-Each entry has the following attributes
+    This will update every 5 minutes
 
-| Attribute Name | type | Note |
-|----------------|------|------|
-| `id` | `string` | The id of the entry |
-| `client_id` | `string` | The id of the client the entry belongs to |
-| `client_name` | `string` | The name of the client the entry belongs to |
-| `project_id` | `string` | The id of the project this sensor is for |
-| `project_name` | `string` | The name of the project the entry belongs to |
-| `task_id` | `string` | The id of the task the entry belongs to|
-| `task_name` | `string` | The name of the task the entry belongs to |
-| `hours` | `float` | The hours logged for the entry |
-| `start` | `datetime` | The start date of the entry. This will always have a time of midnight |
-| `end` | `datetime` | The end date of the entry. This will always have a time of midnight. If this is for the same day, this will have the same value as `start` |
-| `notes` | `string` | Any notes attached to the entry |
+| Attribute Name  | type | Note |
+|-----------------|------|------|
+| `attraction_id` | `string` | The id of the attraction that is recommended |
 
-## Weekly Hours
+## Next Recommended Attraction
 
-`sensor.theme_park_assistant_{ACCOUNT_ID}_hours_week`
+`sensor.next_recommended_attraction_{{PARK_NAME}}`
 
-This sensor will present the total hours for the week, starting from the day you elected as your week start.
+This sensor will present the name of the next recommended attraction. This will be the attraction in your [Recommended Attractions](#recommended-attractions) that have the lowest available stand by wait time.
 
-| Attribute Name | type | Note |
-|----------------|------|------|
-| `account_id` | `string` | The id of the account this sensor is for |
-| `entries` | `list` | The entries that added up to todays total |
+!!! note
 
-Each entry has the following attributes
+    This will update every 5 minutes
 
-| Attribute Name | type | Note |
-|----------------|------|------|
-| `id` | `string` | The id of the entry |
-| `client_id` | `string` | The id of the client the entry belongs to |
-| `client_name` | `string` | The name of the client the entry belongs to |
-| `project_id` | `string` | The id of the project this sensor is for |
-| `project_name` | `string` | The name of the project the entry belongs to |
-| `task_id` | `string` | The id of the task the entry belongs to|
-| `task_name` | `string` | The name of the task the entry belongs to |
-| `hours` | `float` | The hours logged for the entry |
-| `start` | `datetime` | The start date of the entry. This will always have a time of midnight |
-| `end` | `datetime` | The end date of the entry. This will always have a time of midnight. If this is for the same day, this will have the same value as `start` |
-| `notes` | `string` | Any notes attached to the entry |
+| Attribute Name  | type | Note |
+|-----------------|------|------|
+| `attraction_id` | `string` | The id of the attraction that is recommended |
 
-## Default Task
+## Next Recommended Show Minutes
 
-`select.theme_park_assistant_{ACCOUNT_ID}_default_task`
+`sensor.next_recommended_show_minutes_{{PARK_NAME}}`
 
-This select sensor is used to see all of your assigned tasks and select one which can be used as a default in automations (see [service example](./services.md#service-theme_park_assistantadd_time_with_hours)).
+This sensor will present the minutes for the queue of the next recommended show. This will be the show in your [Recommended Attractions](#recommended-attractions) that has the shortest time to the next show time.
 
-| Attribute Name | type | Note |
-|----------------|------|------|
-| `account_id` | `string` | The id of the account this sensor is for |
-| `client_id` | `string` | The id of the client that the selected task belongs to |
-| `client_name` | `string` | The name of the client that the selected task belongs to |
-| `project_id` | `string` | The id of the project that the selected task belongs to |
-| `project_name` | `string` | The name of the project that the selected task belongs to |
-| `task_id` | `string` | The id of the selected task |
-| `task_name` | `string` | The name of the selected task |
+!!! note
+
+    This will update every 5 minutes
+
+| Attribute Name  | type | Note |
+|-----------------|------|------|
+| `attraction_id` | `string` | The id of the show that is recommended |
+
+## Next Recommended Show
+
+`sensor.next_recommended_show_{{PARK_NAME}}`
+
+This sensor will present the name of the next recommended show. This will be the show in your [Recommended Attractions](#recommended-attractions) that has the shortest time to the next show time.
+
+!!! note
+
+    This will update every 5 minutes
+
+| Attribute Name  | type | Note |
+|-----------------|------|------|
+| `attraction_id` | `string` | The id of the show that is recommended |
+
+## Recommended Attractions
+
+`todo.remaining_attractions_{{PARK_NAME}}`
+
+This sensor will present the todo list of remaining attractions that will be used when calculating the next recommended attractions/shows. You should use the [reset service](./services.md#reset_remaining_attractions) to populate this list.
+
+## Theme Park Times
+
+`event.theme_park_times_{{PARK_NAME}}`
+
+This event will display the timestamp of when the [Theme Park Times](./events.md#remaining-attractions-updated) were last updated.

@@ -19,6 +19,7 @@ jobs:
       - name: HACS Action
         uses: "hacs/action@main"
         with:
+          ignore: "brands"
           category: "integration"
   unit-tests:
     name: Unit Tests

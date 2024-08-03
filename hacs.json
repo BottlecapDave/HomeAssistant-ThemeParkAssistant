@@ -1,5 +1,5 @@
 {
   "name": "Theme Park Assistant",
   "render_readme": true,
-  "homeassistant": "2023.5.0"
+  "homeassistant": "2023.12.0"
 }
