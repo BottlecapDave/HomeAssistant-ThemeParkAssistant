@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../services/">
+        <link rel="prev" href="../blueprints/">
       
       
         <link rel="next" href="../sponsorship/">
@@ -330,6 +330,46 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blueprints/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blueprints
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -377,6 +417,24 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-i-take-full-advantage-of-this-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I take full advantage of this integration?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-want-to-see-the-times-in-my-dashboard-for-a-given-theme-park-how-do-i-do-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      I want to see the times in my dashboard for a given theme park. How do I do this?
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#how-do-i-increase-the-logs-for-the-integration" class="md-nav__link">
@@ -442,6 +500,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-do-i-take-full-advantage-of-this-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I take full advantage of this integration?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-want-to-see-the-times-in-my-dashboard-for-a-given-theme-park-how-do-i-do-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      I want to see the times in my dashboard for a given theme park. How do I do this?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-do-i-increase-the-logs-for-the-integration" class="md-nav__link">
     <span class="md-ellipsis">
       How do I increase the logs for the integration?
@@ -469,6 +545,24 @@
 
 
 <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h1>
+<h2 id="how-do-i-take-full-advantage-of-this-integration">How do I take full advantage of this integration?<a class="headerlink" href="#how-do-i-take-full-advantage-of-this-integration" title="Permanent link">#</a></h2>
+<p>Once you've setup your target theme park, there are a few main components.</p>
+<ol>
+<li>The <a href="../entities/#recommended-attractions">recommended attractions</a> todo list, which keeps track of all the attractions you want to ride. This is a standard todo list which can be managed in the normal way.</li>
+<li>The <a href="../services/#reset_remaining_attractions">reset recommended attractions</a> service which populates the above todo list for the target theme park. Be sure to add the attractions you don't want to include in your visit.</li>
+<li>The <a href="../blueprints/#alert-when-recommended-attraction-or-show-updates">alert blueprint</a>, which will alert you what ride/show to go to next and give you the option to remove the attraction so you can be recommended on the next attraction.</li>
+<li>The <a href="../services/#clear_remaining_attractions">clear recommended attractions</a> service, which clears all attractions from the todo list and will effectively stop your alerts.</li>
+</ol>
+<h2 id="i-want-to-see-the-times-in-my-dashboard-for-a-given-theme-park-how-do-i-do-this">I want to see the times in my dashboard for a given theme park. How do I do this?<a class="headerlink" href="#i-want-to-see-the-times-in-my-dashboard-for-a-given-theme-park-how-do-i-do-this" title="Permanent link">#</a></h2>
+<p>You can take advantage of the markdown card, and include the following logic</p>
+<div class="highlight"><pre><span></span><code>| Name | Stand By Minutes |
+|------|------------------|
+{% set attractions = state_attr(&#39;event.theme_park_times_disney_california_adventure_park&#39;, &#39;times&#39;) %}{% if attractions != None %}{% set attractions = (attractions | rejectattr(&#39;stand_by_wait_time_in_minutes&#39;,&#39;eq&#39;,None) |  sort(attribute=&#39;stand_by_wait_time_in_minutes&#39;) | list) %}{% for attraction in attractions %}{% if attraction.entity_type == &quot;ATTRACTION&quot; %}| {{ attraction.name }} | {{ attraction.stand_by_wait_time_in_minutes }} |
+{% endif %}{% endfor %}{%endif%}
+</code></pre></div>
+<p>This will produce the following style</p>
+<p><img alt="Theme Park Times Markdown example" src="../assets/theme_park_times_markdown.png" width="300px" /></p>
+<p>Be sure to update the target entity for your park.</p>
 <h2 id="how-do-i-increase-the-logs-for-the-integration">How do I increase the logs for the integration?<a class="headerlink" href="#how-do-i-increase-the-logs-for-the-integration" title="Permanent link">#</a></h2>
 <p>If you are having issues, it would be helpful to include Home Assistant logs as part of any raised issue. This can be done by following the <a href="https://www.home-assistant.io/docs/configuration/troubleshooting/#enabling-debug-logging">instructions</a> outlined by Home Assistant.</p>
 <p>You should run these logs for about a day and then include the contents in the issue. Please be sure to remove any personal identifiable information from the logs before including them.</p>

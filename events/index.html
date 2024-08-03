@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../entities/">
+        <link rel="prev" href="../services/">
       
       
-        <link rel="next" href="../events/">
+        <link rel="next" href="../blueprints/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Services - Home Assistant Theme Park Assistant</title>
+        <title>Events - Home Assistant Theme Park Assistant</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#services" class="md-skip">
+        <a href="#events" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Services
+              Events
             
           </span>
         </div>
@@ -310,6 +310,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -326,7 +346,7 @@
           
   
   <span class="md-ellipsis">
-    Services
+    Events
   </span>
   
 
@@ -337,7 +357,7 @@
         
   
   <span class="md-ellipsis">
-    Services
+    Events
   </span>
   
 
@@ -359,50 +379,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reset_remaining_attractions" class="md-nav__link">
+  <a href="#remaining-attractions-updated" class="md-nav__link">
     <span class="md-ellipsis">
-      reset_remaining_attractions
+      Remaining Attractions Updated
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="reset_remaining_attractions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#automation-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automation Example
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#clear_remaining_attractions" class="md-nav__link">
+  <a href="#theme-park-times-updated" class="md-nav__link">
     <span class="md-ellipsis">
-      clear_remaining_attractions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="clear_remaining_attractions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#automation-example_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automation Example
+      Theme Park Times Updated
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#new-recommended-attractionshow" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Recommended Attraction/Show
+    </span>
+  </a>
   
 </li>
       
@@ -410,26 +409,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../events/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Events
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -521,50 +500,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reset_remaining_attractions" class="md-nav__link">
+  <a href="#remaining-attractions-updated" class="md-nav__link">
     <span class="md-ellipsis">
-      reset_remaining_attractions
+      Remaining Attractions Updated
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="reset_remaining_attractions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#automation-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automation Example
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#clear_remaining_attractions" class="md-nav__link">
+  <a href="#theme-park-times-updated" class="md-nav__link">
     <span class="md-ellipsis">
-      clear_remaining_attractions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="clear_remaining_attractions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#automation-example_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automation Example
+      Theme Park Times Updated
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#new-recommended-attractionshow" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Recommended Attraction/Show
+    </span>
+  </a>
   
 </li>
       
@@ -586,84 +544,191 @@
   
 
 
-<h1 id="services">Services<a class="headerlink" href="#services" title="Permanent link">#</a></h1>
-<h2 id="reset_remaining_attractions">reset_remaining_attractions<a class="headerlink" href="#reset_remaining_attractions" title="Permanent link">#</a></h2>
-<p>Resets the remaining attractions list with all attractions for the associated park.</p>
+<h1 id="events">Events<a class="headerlink" href="#events" title="Permanent link">#</a></h1>
+<p>The following events are raised by the integration. These events power various entities and can also be used within automations.</p>
+<h2 id="remaining-attractions-updated">Remaining Attractions Updated<a class="headerlink" href="#remaining-attractions-updated" title="Permanent link">#</a></h2>
+<p><code>theme_park_assistant_remaining_attractions_updated</code></p>
+<p>This is fired when the remaining attractions todo list is updated.</p>
 <table>
 <thead>
 <tr>
 <th>Attribute</th>
-<th>Optional</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>target.entity_id</code></td>
-<td><code>no</code></td>
-<td>The name of the sensor to reset</td>
+<td><code>theme_park_id</code></td>
+<td><code>string</code></td>
+<td>The id of the theme park the event is for</td>
 </tr>
 <tr>
-<td><code>data.ignored_attraction_ids</code></td>
-<td><code>yes</code></td>
-<td>The list of attraction ids that you don't want being added to the todo list</td>
+<td><code>remaining_attractions</code></td>
+<td><code>array</code></td>
+<td>The collection of remaining attractions</td>
 </tr>
 </tbody>
 </table>
-<h3 id="automation-example">Automation Example<a class="headerlink" href="#automation-example" title="Permanent link">#</a></h3>
-<p>Below is an example of resetting the remaining attractions todo list every day at 08:00.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>This is probably not how this service should be used, but is for demonstration purposes only</p>
-</div>
-<div class="highlight"><pre><span></span><code><span class="nt">automations</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2446efb1-730a-4447-a7b9-add5f778a334</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Theme Park Assistant - Reset Disney California Adventure</span>
-<span class="w">    </span><span class="nt">trigger</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">time</span>
-<span class="w">      </span><span class="nt">at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;08:00:00&#39;</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
-<span class="w">    </span><span class="nt">action</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">theme_park_assistant.reset_remaining_attractions</span>
-<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
-<span class="w">      </span><span class="nt">target</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">entity_id</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">todo.remaining_attractions_disney_california_adventure_park</span>
-</code></pre></div>
-<h2 id="clear_remaining_attractions">clear_remaining_attractions<a class="headerlink" href="#clear_remaining_attractions" title="Permanent link">#</a></h2>
-<p>Clears all attractions from the todo list.</p>
+<p>For each attraction, the following attributes are available</p>
 <table>
 <thead>
 <tr>
 <th>Attribute</th>
-<th>Optional</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>target.entity_id</code></td>
-<td><code>no</code></td>
-<td>The name of the sensor to clear</td>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>The id of the attraction</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>The name of the attraction</td>
 </tr>
 </tbody>
 </table>
-<h3 id="automation-example_1">Automation Example<a class="headerlink" href="#automation-example_1" title="Permanent link">#</a></h3>
-<p>Below is an example of resetting the remaining attractions todo list every day at 00:01.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">automations</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2446efb1-730a-4447-a7b9-add5f778a334</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Theme Park Assistant - Clear Disney California Adventure</span>
-<span class="w">    </span><span class="nt">trigger</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">time</span>
-<span class="w">      </span><span class="nt">at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;00:01:00&#39;</span>
-<span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
-<span class="w">    </span><span class="nt">action</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">theme_park_assistant.clear_remaining_attractions</span>
-<span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
-<span class="w">      </span><span class="nt">target</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">entity_id</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">todo.remaining_attractions_disney_california_adventure_park</span>
-</code></pre></div>
+<h2 id="theme-park-times-updated">Theme Park Times Updated<a class="headerlink" href="#theme-park-times-updated" title="Permanent link">#</a></h2>
+<p><code>theme_park_assistant_theme_park_times_updated</code></p>
+<p>This is fired when the theme park times are updated. This aims to fire every 5 minutes.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>theme_park_id</code></td>
+<td><code>string</code></td>
+<td>The id of the theme park the event is for</td>
+</tr>
+<tr>
+<td><code>times</code></td>
+<td><code>array</code></td>
+<td>The collection of attractions and their times</td>
+</tr>
+</tbody>
+</table>
+<p>For each attraction, the following attributes are available</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>The id of the attraction</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>The name of the attraction</td>
+</tr>
+<tr>
+<td><code>entity_type</code></td>
+<td><code>string</code></td>
+<td>The type of attraction</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td><code>string</code></td>
+<td>The current status of the attraction</td>
+</tr>
+<tr>
+<td><code>show_times</code></td>
+<td><code>array</code></td>
+<td>The collection of show times for the attraction. This will only be populated for <code>entity_type</code> of value <code>SHOW</code></td>
+</tr>
+<tr>
+<td><code>stand_by_wait_time_in_minutes</code></td>
+<td><code>integer</code></td>
+<td>The number of minutes for the stand by queue. This will only be populated for <code>entity_type</code> of value <code>ATTRACTION</code></td>
+</tr>
+<tr>
+<td><code>single_rider_wait_time_in_minutes</code></td>
+<td><code>integer</code></td>
+<td>The number of minutes for the single rider. This will only be populated for <code>entity_type</code> of value <code>ATTRACTION</code></td>
+</tr>
+<tr>
+<td><code>last_updated</code></td>
+<td><code>datetime</code></td>
+<td>The datetime the times were last updated</td>
+</tr>
+</tbody>
+</table>
+<p>For each show time, the following attribute are available</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start_time</code></td>
+<td><code>datetime</code></td>
+<td>The start time of the show</td>
+</tr>
+<tr>
+<td><code>end_time</code></td>
+<td><code>datetime</code></td>
+<td>The end time of the show</td>
+</tr>
+</tbody>
+</table>
+<h2 id="new-recommended-attractionshow">New Recommended Attraction/Show<a class="headerlink" href="#new-recommended-attractionshow" title="Permanent link">#</a></h2>
+<p><code>theme_park_assistant_new_recommended_attraction</code></p>
+<p>This is fired when a new recommended attraction or show is selected.</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>theme_park_id</code></td>
+<td><code>string</code></td>
+<td>The id of the theme park the event is for</td>
+</tr>
+<tr>
+<td><code>attraction_id</code></td>
+<td><code>string</code></td>
+<td>The id of the recommended attraction</td>
+</tr>
+<tr>
+<td><code>attraction_name</code></td>
+<td><code>string</code></td>
+<td>The name of the recommended attraction</td>
+</tr>
+<tr>
+<td><code>is_show</code></td>
+<td><code>boolean</code></td>
+<td>Determines if the recommended attraction is a show</td>
+</tr>
+<tr>
+<td><code>minutes</code></td>
+<td><code>integer</code></td>
+<td>The number of minutes for the recommended attraction</td>
+</tr>
+</tbody>
+</table>
 
 
 

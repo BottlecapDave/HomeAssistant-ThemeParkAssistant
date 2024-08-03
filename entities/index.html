@@ -339,27 +339,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#daily-hours" class="md-nav__link">
+  <a href="#next-recommended-attraction-minutes" class="md-nav__link">
     <span class="md-ellipsis">
-      Daily Hours
+      Next Recommended Attraction Minutes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#weekly-hours" class="md-nav__link">
+  <a href="#next-recommended-attraction" class="md-nav__link">
     <span class="md-ellipsis">
-      Weekly Hours
+      Next Recommended Attraction
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-task" class="md-nav__link">
+  <a href="#next-recommended-show-minutes" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Task
+      Next Recommended Show Minutes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-recommended-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Recommended Show
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-attractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Attractions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theme-park-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theme Park Times
     </span>
   </a>
   
@@ -385,6 +412,46 @@
   
   <span class="md-ellipsis">
     Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../blueprints/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blueprints
   </span>
   
 
@@ -460,27 +527,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#daily-hours" class="md-nav__link">
+  <a href="#next-recommended-attraction-minutes" class="md-nav__link">
     <span class="md-ellipsis">
-      Daily Hours
+      Next Recommended Attraction Minutes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#weekly-hours" class="md-nav__link">
+  <a href="#next-recommended-attraction" class="md-nav__link">
     <span class="md-ellipsis">
-      Weekly Hours
+      Next Recommended Attraction
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-task" class="md-nav__link">
+  <a href="#next-recommended-show-minutes" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Task
+      Next Recommended Show Minutes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-recommended-show" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Recommended Show
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-attractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Attractions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theme-park-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theme Park Times
     </span>
   </a>
   
@@ -506,9 +600,13 @@
 
 <h1 id="entities">Entities<a class="headerlink" href="#entities" title="Permanent link">#</a></h1>
 <p>The following entities are available when setting up your account.</p>
-<h2 id="daily-hours">Daily Hours<a class="headerlink" href="#daily-hours" title="Permanent link">#</a></h2>
-<p><code>sensor.theme_park_assistant_{ACCOUNT_ID}_hours_today</code></p>
-<p>This sensor will present the total hours for today.</p>
+<h2 id="next-recommended-attraction-minutes">Next Recommended Attraction Minutes<a class="headerlink" href="#next-recommended-attraction-minutes" title="Permanent link">#</a></h2>
+<p><code>sensor.next_recommended_attraction_minutes_{{PARK_NAME}}</code></p>
+<p>This sensor will present the minutes for the queue of the next recommended attraction. This will be the attraction in your <a href="#recommended-attractions">Recommended Attractions</a> that have the lowest available stand by wait time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will update every 5 minutes</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -519,18 +617,19 @@
 </thead>
 <tbody>
 <tr>
-<td><code>account_id</code></td>
+<td><code>attraction_id</code></td>
 <td><code>string</code></td>
-<td>The id of the account this sensor is for</td>
-</tr>
-<tr>
-<td><code>entries</code></td>
-<td><code>list</code></td>
-<td>The entries that added up to todays total</td>
+<td>The id of the attraction that is recommended</td>
 </tr>
 </tbody>
 </table>
-<p>Each entry has the following attributes</p>
+<h2 id="next-recommended-attraction">Next Recommended Attraction<a class="headerlink" href="#next-recommended-attraction" title="Permanent link">#</a></h2>
+<p><code>sensor.next_recommended_attraction_{{PARK_NAME}}</code></p>
+<p>This sensor will present the name of the next recommended attraction. This will be the attraction in your <a href="#recommended-attractions">Recommended Attractions</a> that have the lowest available stand by wait time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will update every 5 minutes</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -541,65 +640,19 @@
 </thead>
 <tbody>
 <tr>
-<td><code>id</code></td>
+<td><code>attraction_id</code></td>
 <td><code>string</code></td>
-<td>The id of the entry</td>
-</tr>
-<tr>
-<td><code>client_id</code></td>
-<td><code>string</code></td>
-<td>The id of the client the entry belongs to</td>
-</tr>
-<tr>
-<td><code>client_name</code></td>
-<td><code>string</code></td>
-<td>The name of the client the entry belongs to</td>
-</tr>
-<tr>
-<td><code>project_id</code></td>
-<td><code>string</code></td>
-<td>The id of the project this sensor is for</td>
-</tr>
-<tr>
-<td><code>project_name</code></td>
-<td><code>string</code></td>
-<td>The name of the project the entry belongs to</td>
-</tr>
-<tr>
-<td><code>task_id</code></td>
-<td><code>string</code></td>
-<td>The id of the task the entry belongs to</td>
-</tr>
-<tr>
-<td><code>task_name</code></td>
-<td><code>string</code></td>
-<td>The name of the task the entry belongs to</td>
-</tr>
-<tr>
-<td><code>hours</code></td>
-<td><code>float</code></td>
-<td>The hours logged for the entry</td>
-</tr>
-<tr>
-<td><code>start</code></td>
-<td><code>datetime</code></td>
-<td>The start date of the entry. This will always have a time of midnight</td>
-</tr>
-<tr>
-<td><code>end</code></td>
-<td><code>datetime</code></td>
-<td>The end date of the entry. This will always have a time of midnight. If this is for the same day, this will have the same value as <code>start</code></td>
-</tr>
-<tr>
-<td><code>notes</code></td>
-<td><code>string</code></td>
-<td>Any notes attached to the entry</td>
+<td>The id of the attraction that is recommended</td>
 </tr>
 </tbody>
 </table>
-<h2 id="weekly-hours">Weekly Hours<a class="headerlink" href="#weekly-hours" title="Permanent link">#</a></h2>
-<p><code>sensor.theme_park_assistant_{ACCOUNT_ID}_hours_week</code></p>
-<p>This sensor will present the total hours for the week, starting from the day you elected as your week start.</p>
+<h2 id="next-recommended-show-minutes">Next Recommended Show Minutes<a class="headerlink" href="#next-recommended-show-minutes" title="Permanent link">#</a></h2>
+<p><code>sensor.next_recommended_show_minutes_{{PARK_NAME}}</code></p>
+<p>This sensor will present the minutes for the queue of the next recommended show. This will be the show in your <a href="#recommended-attractions">Recommended Attractions</a> that has the shortest time to the next show time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will update every 5 minutes</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -610,18 +663,19 @@
 </thead>
 <tbody>
 <tr>
-<td><code>account_id</code></td>
+<td><code>attraction_id</code></td>
 <td><code>string</code></td>
-<td>The id of the account this sensor is for</td>
-</tr>
-<tr>
-<td><code>entries</code></td>
-<td><code>list</code></td>
-<td>The entries that added up to todays total</td>
+<td>The id of the show that is recommended</td>
 </tr>
 </tbody>
 </table>
-<p>Each entry has the following attributes</p>
+<h2 id="next-recommended-show">Next Recommended Show<a class="headerlink" href="#next-recommended-show" title="Permanent link">#</a></h2>
+<p><code>sensor.next_recommended_show_{{PARK_NAME}}</code></p>
+<p>This sensor will present the name of the next recommended show. This will be the show in your <a href="#recommended-attractions">Recommended Attractions</a> that has the shortest time to the next show time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will update every 5 minutes</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -632,111 +686,18 @@
 </thead>
 <tbody>
 <tr>
-<td><code>id</code></td>
+<td><code>attraction_id</code></td>
 <td><code>string</code></td>
-<td>The id of the entry</td>
-</tr>
-<tr>
-<td><code>client_id</code></td>
-<td><code>string</code></td>
-<td>The id of the client the entry belongs to</td>
-</tr>
-<tr>
-<td><code>client_name</code></td>
-<td><code>string</code></td>
-<td>The name of the client the entry belongs to</td>
-</tr>
-<tr>
-<td><code>project_id</code></td>
-<td><code>string</code></td>
-<td>The id of the project this sensor is for</td>
-</tr>
-<tr>
-<td><code>project_name</code></td>
-<td><code>string</code></td>
-<td>The name of the project the entry belongs to</td>
-</tr>
-<tr>
-<td><code>task_id</code></td>
-<td><code>string</code></td>
-<td>The id of the task the entry belongs to</td>
-</tr>
-<tr>
-<td><code>task_name</code></td>
-<td><code>string</code></td>
-<td>The name of the task the entry belongs to</td>
-</tr>
-<tr>
-<td><code>hours</code></td>
-<td><code>float</code></td>
-<td>The hours logged for the entry</td>
-</tr>
-<tr>
-<td><code>start</code></td>
-<td><code>datetime</code></td>
-<td>The start date of the entry. This will always have a time of midnight</td>
-</tr>
-<tr>
-<td><code>end</code></td>
-<td><code>datetime</code></td>
-<td>The end date of the entry. This will always have a time of midnight. If this is for the same day, this will have the same value as <code>start</code></td>
-</tr>
-<tr>
-<td><code>notes</code></td>
-<td><code>string</code></td>
-<td>Any notes attached to the entry</td>
+<td>The id of the show that is recommended</td>
 </tr>
 </tbody>
 </table>
-<h2 id="default-task">Default Task<a class="headerlink" href="#default-task" title="Permanent link">#</a></h2>
-<p><code>select.theme_park_assistant_{ACCOUNT_ID}_default_task</code></p>
-<p>This select sensor is used to see all of your assigned tasks and select one which can be used as a default in automations (see <a href="../services/#service-theme_park_assistantadd_time_with_hours">service example</a>).</p>
-<table>
-<thead>
-<tr>
-<th>Attribute Name</th>
-<th>type</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>account_id</code></td>
-<td><code>string</code></td>
-<td>The id of the account this sensor is for</td>
-</tr>
-<tr>
-<td><code>client_id</code></td>
-<td><code>string</code></td>
-<td>The id of the client that the selected task belongs to</td>
-</tr>
-<tr>
-<td><code>client_name</code></td>
-<td><code>string</code></td>
-<td>The name of the client that the selected task belongs to</td>
-</tr>
-<tr>
-<td><code>project_id</code></td>
-<td><code>string</code></td>
-<td>The id of the project that the selected task belongs to</td>
-</tr>
-<tr>
-<td><code>project_name</code></td>
-<td><code>string</code></td>
-<td>The name of the project that the selected task belongs to</td>
-</tr>
-<tr>
-<td><code>task_id</code></td>
-<td><code>string</code></td>
-<td>The id of the selected task</td>
-</tr>
-<tr>
-<td><code>task_name</code></td>
-<td><code>string</code></td>
-<td>The name of the selected task</td>
-</tr>
-</tbody>
-</table>
+<h2 id="recommended-attractions">Recommended Attractions<a class="headerlink" href="#recommended-attractions" title="Permanent link">#</a></h2>
+<p><code>todo.remaining_attractions_{{PARK_NAME}}</code></p>
+<p>This sensor will present the todo list of remaining attractions that will be used when calculating the next recommended attractions/shows. You should use the <a href="../services/#reset_remaining_attractions">reset service</a> to populate this list.</p>
+<h2 id="theme-park-times">Theme Park Times<a class="headerlink" href="#theme-park-times" title="Permanent link">#</a></h2>
+<p><code>event.theme_park_times_{{PARK_NAME}}</code></p>
+<p>This event will display the timestamp of when the <a href="../events/#remaining-attractions-updated">Theme Park Times</a> were last updated.</p>
 
 
 
