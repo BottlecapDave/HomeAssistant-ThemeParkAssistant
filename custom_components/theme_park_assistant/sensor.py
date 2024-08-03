@@ -42,4 +42,4 @@ async def async_setup_main_sensors(hass, config, async_add_entities):
   entities.append(ThemeParkAssistantNextRecommendedShow(hass, coordinator, theme_park_id, theme_park_name, minimum_minutes))
   entities.append(ThemeParkAssistantNextRecommendedShowMinutes(hass, coordinator, theme_park_id, theme_park_name, minimum_minutes))
 
-  async_add_entities(entities)
+  async_add_entities(entities, True)

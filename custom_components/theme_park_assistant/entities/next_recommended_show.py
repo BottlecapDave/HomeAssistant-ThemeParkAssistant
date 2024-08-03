@@ -70,7 +70,7 @@ class ThemeParkAssistantNextRecommendedShow(CoordinatorEntity, SensorEntity):
       new_recommended_attraction = get_next_recommended_show(current, self._remaining_attractions, result.data, self._minimum_minutes)
 
       if new_recommended_attraction is not None and (self._recommended_attraction is None or new_recommended_attraction.show.id != self._recommended_attraction.show.id):
-        self._hass.async_fire(EVENT_NEW_RECOMMENDED_ATTRACTION, {
+        self._hass.bus.async_fire(EVENT_NEW_RECOMMENDED_ATTRACTION, {
           "theme_park_id": self._theme_park_id,
           "attraction_id": new_recommended_attraction.show.id,
           "attraction_name": new_recommended_attraction.show.name,
