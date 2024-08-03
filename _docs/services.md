@@ -4,9 +4,10 @@
 
 Resets the remaining attractions list with all attractions for the associated park.
 
-| Attribute                | Optional | Description                                                                                                           |
-| ------------------------ | -------- | ------------------------------- |
-| `target.entity_id`       | `no`     | The name of the sensor to reset |
+| Attribute                     | Optional | Description                                                                 |
+| ----------------------------- | -------- | --------------------------------------------------------------------------- |
+| `target.entity_id`            | `no`     | The name of the sensor to reset                                             |
+| `data.ignored_attraction_ids` | `yes`    | The list of attraction ids that you don't want being added to the todo list |
 
 ### Automation Example
 

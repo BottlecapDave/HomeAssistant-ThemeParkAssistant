@@ -41,13 +41,16 @@ class ThemeParkAssistantRemainingAttractions(CoordinatorEntity, TodoListEntity):
     return self._attributes
   
   @callback
-  async def async_reset_remaining_attractions(self):
+  async def async_reset_remaining_attractions(self, ignored_attraction_ids: list[str]):
     """Reset the todo list with the attractions for the park"""
     result: ThemeParkAttractionTimesCoordinatorResult = self.coordinator.data if self.coordinator is not None and self.coordinator.data is not None else None
 
     if result is not None and result.data is not None:
       self._attr_todo_items = []
       for attraction in result.data:
+        if (ignored_attraction_ids is not None and attraction.id in ignored_attraction_ids):
+          continue
+        
         if (attraction.status not in ("REFURBISHMENT")):
           self._attr_todo_items.append(TodoItem(summary=attraction.name, uid=attraction.id, status=TodoItemStatus.NEEDS_ACTION))
 

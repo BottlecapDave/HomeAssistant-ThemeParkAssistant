@@ -5,6 +5,13 @@ reset_remaining_attractions:
     entity:
       integration: theme_park_assistant
       domain: todo
+  fields:
+    ignored_attraction_ids:
+      name: Ignored attraction ids
+      description: The collection of attraction ids to not add to the remaining attractions list
+      selector:
+        text:
+          multiple: true
 clear_remaining_attractions:
   name: Clear remaining attractions
   description: Clears all attractions from the todo list.

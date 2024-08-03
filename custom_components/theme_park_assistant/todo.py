@@ -2,6 +2,7 @@ import logging
 import voluptuous as vol
 
 from homeassistant.helpers import entity_platform
+import homeassistant.helpers.config_validation as cv
 
 from .const import (
   CONFIG_MAIN_THEME_PARK_ID,
@@ -36,6 +37,7 @@ async def async_setup_main_sensors(hass, config, async_add_entities):
     vol.All(
       vol.Schema(
         {
+          vol.Required('ignored_attraction_ids'): vol.All(cv.ensure_list, [str]),
         },
         extra=vol.ALLOW_EXTRA,
       ),
