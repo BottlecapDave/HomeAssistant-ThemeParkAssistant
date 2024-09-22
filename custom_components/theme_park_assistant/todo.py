@@ -37,7 +37,7 @@ async def async_setup_main_sensors(hass, config, async_add_entities):
     vol.All(
       cv.make_entity_service_schema(
         {
-          vol.Required('ignored_attraction_ids'): vol.All(cv.ensure_list, [str]),
+          vol.Optional('ignored_attraction_ids'): vol.All(cv.ensure_list, [str]),
         },
         extra=vol.ALLOW_EXTRA,
       ),
