@@ -35,7 +35,7 @@ async def async_setup_main_sensors(hass, config, async_add_entities):
   platform.async_register_entity_service(
     "reset_remaining_attractions",
     vol.All(
-      vol.Schema(
+      cv.make_entity_service_schema(
         {
           vol.Required('ignored_attraction_ids'): vol.All(cv.ensure_list, [str]),
         },
@@ -48,7 +48,7 @@ async def async_setup_main_sensors(hass, config, async_add_entities):
   platform.async_register_entity_service(
     "clear_remaining_attractions",
     vol.All(
-      vol.Schema(
+      cv.make_entity_service_schema(
         {
         },
         extra=vol.ALLOW_EXTRA,
