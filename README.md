@@ -4,6 +4,7 @@
 
 - [Home Assistant Theme Park Assistant](#home-assistant-theme-park-assistant)
   - [How to install](#how-to-install)
+    - [HACS](#hacs)
     - [Manual](#manual)
   - [How to setup](#how-to-setup)
   - [Docs](#docs)
@@ -15,6 +16,10 @@ Custom component to help you navigate through theme parks and find the rides wit
 ## How to install
 
 There are multiple ways of installing the integration.
+
+### HACS
+
+While the integration isn't available in the HACS store yet, you can install it as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories), providing the url `https://github.com/BottlecapDave/HomeAssistant-ThemeParkAssistant` and category of `integration`. Once installed, don't forget to restart your home assistant instance for the integration to be picked up.
 
 ### Manual
 
